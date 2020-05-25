@@ -18,7 +18,14 @@ class _NewState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        _app_bar(),
+        Expanded(
+          flex: 0,
+          child: Container(
+            height: 120,
+            color: Colors.grey,
+            child: _app_bar(),
+          ),
+        ),
         _banner_view(),
       ],
     );
@@ -44,50 +51,35 @@ class _NewState extends State<MainPage> {
   }
 
   _app_bar() {
-    return Column(
-      children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              //AppBar渐变遮罩背景
-              colors: [Color(0x66000000), Colors.transparent],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+    return Container(
+      margin: EdgeInsets.fromLTRB(10, 50, 10, 20),
+      height: 80,
+      decoration: ShapeDecoration(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+        color: Colors.white,
+      ),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: Icon(Icons.search),
+          ),
+          Expanded(
+            flex: 5,
+            child: TextField(
+              enabled: false, //不可点击
+              decoration: InputDecoration(
+                  border: InputBorder.none, //去掉下划线
+//                  icon: Icon(Icons.backup), //左边边图片
+                  hintText: SEARCH_BAR_DEFAULT_TEXT),
             ),
           ),
-          child: Container(
-            padding: EdgeInsets.fromLTRB(14, 20, 0, 0),
-            height: 86.0,
-            decoration: BoxDecoration(
-                color:
-                    Color.fromARGB((appBarAlpha * 255).toInt(), 255, 255, 255),
-                boxShadow: [
-                  BoxShadow(
-                    color: appBarAlpha == 1.0
-                        ? Colors.black12
-                        : Colors.transparent,
-                    offset: Offset(2, 3),
-                    blurRadius: 6,
-                    spreadRadius: 0.6,
-                  ),
-                ]),
-            child: SearchBar(
-              searchBarType: appBarAlpha > 0.2
-                  ? SearchBarType.homeLight
-                  : SearchBarType.home,
-//              inputBoxClick: _jumpToSearch,
-              defaultText: SEARCH_BAR_DEFAULT_TEXT,
-              leftButtonClick: () {},
-//              speakClick: _jumpToSpeak,
-//              rightButtonClick: _jumpToUser,
-            ),
-          ),
-        ),
-        Container(
-            height: appBarAlpha > 0.2 ? 0.5 : 0,
-            decoration: BoxDecoration(
-                boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 0.5)]))
-      ],
+          Expanded(
+            flex: 1,
+            child: Icon(Icons.mic),
+          )
+        ],
+      ),
     );
   }
 }
