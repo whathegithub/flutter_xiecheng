@@ -1,0 +1,6 @@
+package com.ysl.flutter_xiecheng
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
