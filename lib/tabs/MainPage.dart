@@ -18,19 +18,43 @@ class _NewState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Column(
-          children: <Widget>[
-            _banner_view(),
-            Expanded(
-              flex: 1,
-              child: ListView.builder(
-                itemCount: 120,
-                itemBuilder: ( context,  index) {
-                 return Text("我是第 $index 条数据");
-                },
+        Expanded(
+          flex: 1,
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                pinned: true,
+                expandedHeight: 200.0,
+                flexibleSpace: _banner_view(),
               ),
-            )
-          ],
+              SliverGrid.count(
+                crossAxisCount: 4,
+                children: List.generate(8, (index) {
+                  return Container(
+                    color: Colors.primaries[index % Colors.primaries.length],
+                    alignment: Alignment.center,
+                    child: Text(
+                      '$index',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  );
+                }).toList(),
+              ),
+              SliverList(
+                delegate: SliverChildBuilderDelegate((content, index) {
+                  return Container(
+                    height: 85,
+                    alignment: Alignment.center,
+                    color: Colors.primaries[index % Colors.primaries.length],
+                    child: Text(
+                      '$index',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  );
+                }, childCount: 25),
+              )
+            ],
+          ),
         ),
         Container(
 //          height: 150,
