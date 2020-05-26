@@ -16,17 +16,27 @@ class _NewState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: <Widget>[
-        Expanded(
-          flex: 0,
-          child: Container(
-            height: 120,
-            color: Colors.grey,
-            child: _app_bar(),
-          ),
+        Column(
+          children: <Widget>[
+            _banner_view(),
+            Expanded(
+              flex: 1,
+              child: ListView.builder(
+                itemCount: 120,
+                itemBuilder: ( context,  index) {
+                 return Text("我是第 $index 条数据");
+                },
+              ),
+            )
+          ],
         ),
-        _banner_view(),
+        Container(
+//          height: 150,
+          color: Colors.transparent,
+          child: _app_bar(),
+        ),
       ],
     );
   }
@@ -52,8 +62,8 @@ class _NewState extends State<MainPage> {
 
   _app_bar() {
     return Container(
-      margin: EdgeInsets.fromLTRB(10, 50, 10, 20),
-      height: 80,
+      margin: EdgeInsets.fromLTRB(10, 30, 10, 20),
+      height: 50, //如果外层是container,而且设置了高度.则此高度设置没用.因此外层可不设置高度
       decoration: ShapeDecoration(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
         color: Colors.white,
