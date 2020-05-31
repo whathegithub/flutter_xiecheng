@@ -113,14 +113,14 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
 }
 
 class _LoadingMoreBloc<T> {
-  final _rebuild =  StreamController<LoadingMoreBase<T>>.broadcast();
-  Stream<LoadingMoreBase<T>> get rebuild => _rebuild.stream;
+  final _streamController =  StreamController<LoadingMoreBase<T>>.broadcast();
+  Stream<LoadingMoreBase<T>> get rebuild => _streamController.stream;
 
   void onStateChanged(LoadingMoreBase<T> source) {
-    if (!_rebuild.isClosed) _rebuild.sink.add(source);
+    if (!_streamController.isClosed) _streamController.sink.add(source);
   }
 
   void dispose() {
-    _rebuild.close();
+    _streamController.close();
   }
 }

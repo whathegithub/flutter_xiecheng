@@ -51,7 +51,7 @@ class TuChongRepository extends LoadingMoreBase<TuChongItem> {
       //to show loading more clearly, in your app,remove this
       await Future.delayed(Duration(milliseconds: 500));
       List<TuChongItem> feedList;
-      if (!kIsWeb) {
+      if (false) {
         final result = await Dio().get(url);
         feedList = TuChongSource.fromJson(json.decode(result.data)).feedList;
       } else {
