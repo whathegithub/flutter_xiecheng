@@ -15,7 +15,6 @@ class _NewState extends State<TravelPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-//    _initData();
   }
 
   @override
@@ -37,7 +36,7 @@ class _NewState extends State<TravelPage> {
     data == null ? itemCount : (itemCount = data.length);
     return ListView.builder(
         physics: AlwaysScrollableScrollPhysics(), //确保视图始终可以滚动
-//        controller: _scrollController(),
+        controller: _scrollController(),
         itemCount: itemCount,
         itemBuilder: (context, index) {
           return ListTile(
@@ -60,16 +59,32 @@ class _NewState extends State<TravelPage> {
         });
   }
 
-
-  ScrollController _scrollController(){
+  ScrollController _scrollController() {
     ScrollController scrollController = ScrollController();
-    var offset = scrollController.offset;
-    print("---------offset");
+    scrollController.addListener(() {
+      double maxScrollOffset =
+          scrollController.position.maxScrollExtent; //当前的可滑动的最大位置
+      double curOffset = scrollController.offset;
+      print("---------$maxScrollOffset++++++++ $curOffset");
+
+      if (curOffset == maxScrollOffset) {
+        //滚动到最低
+        var loadMore = _loadMore();
+      }
+    });
     return scrollController;
   }
 
   Future<void> _initData() async {
     loadSuccess = await tuChongRepository.refresh();
     if (loadSuccess) {}
+  }
+
+  Future<bool> _loadMore() async {
+    var bool = await tuChongRepository.loadMore();
+    if (bool) {
+      return tuChongRepository.hasMore;
+    }
+    return false;
   }
 }
