@@ -70,7 +70,7 @@ class _my_state extends State<SplashPage> {
 
   void _jumpToMain(BuildContext context) async {
     await Future.delayed(Duration(seconds: 3)).then((value) {
-      Navigator.pushNamed(context, "/my_app");
+      Navigator.popAndPushNamed(context, "/my_app");
     });
     print("-------3-------");
   }
