@@ -12,15 +12,6 @@ class TabsController extends StatefulWidget {
 class _NewState extends State<TabsController> {
   var selectIndex = 0;
 
-  //使用路由Navigator跳转
-//  final tabs = {
-//    "/": (context) => MainPage(),
-//    "/travel": (context) => TravelPage(),
-//    "/message": (context) => MessagePage(),
-//    "/road": (context) => RoadPage(),
-//    "/mine": (context) => MinePage(),
-//  };
-
   final tabs = [
     MainPage(),
     TravelPage(),

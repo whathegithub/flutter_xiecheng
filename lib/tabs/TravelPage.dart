@@ -15,6 +15,7 @@ class _NewState extends State<TravelPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    _initData();
   }
 
   @override
@@ -41,7 +42,7 @@ class _NewState extends State<TravelPage> {
         itemBuilder: (context, index) {
           return ListTile(
             onTap: () {
-              _initData();
+//              _initData();
             },
             leading: data == null
                 ? Image.asset("images/xiecheng_active.png",

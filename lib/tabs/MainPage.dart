@@ -14,6 +14,8 @@ class MainPage extends StatefulWidget {
 class _NewState extends State<MainPage> {
   double appBarAlpha = 0;
 
+
+
   @override
   Widget build(BuildContext context) {
     return Stack(
