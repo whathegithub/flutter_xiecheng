@@ -7,7 +7,7 @@ class TravelPage extends StatefulWidget {
   State<StatefulWidget> createState() => _NewState();
 }
 
-class _NewState extends State<TravelPage> {
+class _NewState extends State<TravelPage> with AutomaticKeepAliveClientMixin{
   TuChongRepository tuChongRepository = TuChongRepository();
   bool loadSuccess = false;
 
@@ -15,11 +15,13 @@ class _NewState extends State<TravelPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print("Traavel initState");
     _initData();
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return RefreshIndicator(
         child: StreamBuilder(
           builder: (context, snapshot) {
@@ -88,4 +90,7 @@ class _NewState extends State<TravelPage> {
     }
     return false;
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
