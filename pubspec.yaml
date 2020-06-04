@@ -50,6 +50,7 @@ flutter:
   assets:
     - images/type_channelplane.png
     - images/splash.png
+    - images/splash_bg.png
     - images/type_district.png
     - images/type_food.png
     - images/type_hotel.png

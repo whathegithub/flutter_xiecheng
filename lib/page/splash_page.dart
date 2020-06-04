@@ -44,8 +44,16 @@ class _my_state extends State<SplashPage> {
           print("-------1-------");
           _jumpToMain(context);
           print("-------2-------");
-          return Column(
+          return Stack(
             children: <Widget>[
+              Container(
+                child: Image.asset(
+                  "images/splash_bg.png",
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.fill,
+                ),
+              ),
               Container(
                 width: 60,
                 height: 30,
@@ -53,14 +61,6 @@ class _my_state extends State<SplashPage> {
                   child: Text(JUMP),
                 ),
               ),
-              Container(
-                child: Image.asset(
-                  "images/splash.png",
-                  width: 600,
-                  height: 600,
-                  fit: BoxFit.fitWidth,
-                ),
-              )
             ],
           );
         }),
