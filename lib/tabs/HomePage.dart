@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:flutter_xiecheng/model/home_model.dart';
+import 'package:flutter_xiecheng/net/bean/home_model.dart';
 import 'package:flutter_xiecheng/widget/search_bar.dart';
 
 //常量定义在外边
@@ -14,12 +14,6 @@ class MainPage extends StatefulWidget {
 
 class _NewState extends State<MainPage> {
   double appBarAlpha = 0;
-
-
-  HomeModel _homeModel = HomeModel(
-
-  );
-
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +42,7 @@ class _NewState extends State<MainPage> {
                 }).toList(),
               ),
               SliverList(
-                delegate: SliverChildBuilderDelegate((content, index) {
+                delegate: SliverChildBuilderDelegate((  content, index) {
                   return Container(
                     height: 85,
                     alignment: Alignment.center,

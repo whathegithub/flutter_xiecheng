@@ -13,7 +13,7 @@ class _NewState extends State<RoadPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _loadData();
+//    _loadData();
   }
 
   @override

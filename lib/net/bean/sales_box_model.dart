@@ -1,5 +1,5 @@
 
-import 'common_model.dart';
+import 'package:flutter_xiecheng/net/bean/common_model.dart';
 
 //活动入口模型
 class SalesBoxModel {

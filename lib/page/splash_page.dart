@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_xiecheng/widget/search_bar.dart';
 import 'package:flutter_xiecheng/main.dart';
-import 'package:flutter_xiecheng/tabs/MainPage.dart';
+import 'package:flutter_xiecheng/tabs/HomePage.dart';
 import 'package:flutter_xiecheng/tabs/MinePage.dart';
 import 'package:flutter_xiecheng/tabs/TravelPage.dart';
 import 'package:flutter_xiecheng/tabs/RoadPage.dart';

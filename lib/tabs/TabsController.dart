@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_xiecheng/tabs/MainPage.dart';
+import 'package:flutter_xiecheng/tabs/HomePage.dart';
 import 'package:flutter_xiecheng/tabs/MinePage.dart';
 import 'package:flutter_xiecheng/tabs/RoadPage.dart';
 import 'package:flutter_xiecheng/tabs/TravelPage.dart';

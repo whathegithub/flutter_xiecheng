@@ -1,6 +1,6 @@
 
 
-import 'common_model.dart';
+import 'package:flutter_xiecheng/net/bean/common_model.dart';
 
 //首页网格卡片模型
 class GridNavModel {
