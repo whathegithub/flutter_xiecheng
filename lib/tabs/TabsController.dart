@@ -4,6 +4,11 @@ import 'package:flutter_xiecheng/tabs/MinePage.dart';
 import 'package:flutter_xiecheng/tabs/RoadPage.dart';
 import 'package:flutter_xiecheng/tabs/TravelPage.dart';
 
+const PAGE_HOME = "首页";
+const PAGE_TRAVEL = "旅拍";
+const PAGE_ROAD = "行程";
+const PAGE_MINE = "我的";
+
 class TabsController extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _NewState();
@@ -47,7 +52,7 @@ class _NewState extends State<TabsController> {
             setState(() {
               //setstate后会重新调用build
               selectIndex = index;
-              _pageController.jumpToPage(index);
+              _pageController.jumpToPage(index);//点击bottombar,pageview跳转到指定页面
             });
           },
           selectedFontSize: 12,
@@ -56,22 +61,22 @@ class _NewState extends State<TabsController> {
                 activeIcon: Image.asset("images/xiecheng_active.png",
                     width: 22, height: 22),
                 icon: Image.asset("images/xiecheng.png", width: 22, height: 22),
-                title: Text("首页")),
+                title: Text(PAGE_HOME)),
             BottomNavigationBarItem(
                 activeIcon: Image.asset("images/lvpai_active.png",
                     width: 22, height: 22),
                 icon: Image.asset("images/lvpai.png", width: 22, height: 22),
-                title: Text("旅拍")),
+                title: Text(PAGE_TRAVEL)),
             BottomNavigationBarItem(
                 activeIcon: Image.asset("images/mude_active.png",
                     width: 22, height: 22),
                 icon: Image.asset("images/mude.png", width: 22, height: 22),
-                title: Text("行程")),
+                title: Text(PAGE_ROAD)),
             BottomNavigationBarItem(
                 activeIcon: Image.asset("images/wode_active.png",
                     width: 22, height: 22),
                 icon: Image.asset("images/wode.png", width: 22, height: 22),
-                title: Text("我的")),
+                title: Text(PAGE_MINE)),
           ]),
     );
   }
