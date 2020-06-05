@@ -43,12 +43,12 @@ class _my_state extends State<SplashPage> {
       },
       onGenerateRoute: (settings) {
         print("-------------- ${settings.arguments}--${settings.name}");
-//        if (settings.name == '/web_page') {
+        if (settings.name == '/web_page') {
           return MaterialPageRoute(
               builder: (context) => WebviewPage(
                     url: settings.arguments,
                   ));
-//        }
+        }
         return MaterialPageRoute(builder: (context) => MainPage());
       },
       home: Scaffold(
