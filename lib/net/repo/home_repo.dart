@@ -12,8 +12,10 @@ class HomeRepo {
 
   Future<HomeModel> getHomePageData() async{
        var response = await Dio().get(Api.PAGE_HOME_URL);
+
        if(response.statusCode == NetStatus.RESULT_OK){
          HomeModel homeModel = HomeModel.fromJson(response.data);
+         print(homeModel.config.searchUrl);
          return homeModel;
        }else {
          return Future.error(Strings.MESSAGE_ERROR);

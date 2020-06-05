@@ -6,8 +6,8 @@ import 'tabs/TabsController.dart';
 class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-       return MaterialApp(
-           home:TabsController()
+       return Scaffold(
+           body:TabsController()
        );
   }
 }

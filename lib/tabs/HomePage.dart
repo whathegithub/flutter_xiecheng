@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_xiecheng/net/bean/home_model.dart';
+import 'package:flutter_xiecheng/net/repo/home_repo.dart';
 import 'package:flutter_xiecheng/widget/search_bar.dart';
 
 //常量定义在外边
@@ -14,73 +17,94 @@ class MainPage extends StatefulWidget {
 
 class _NewState extends State<MainPage> {
   double appBarAlpha = 0;
+  StreamController<HomeModel> _streamController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _streamController = StreamController();
+    HomeRepo homeRepo = HomeRepo();
+    homeRepo.getHomePageData().then((value) => _streamController.add(value));
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Expanded(
-          flex: 1,
-          child: CustomScrollView(
-            slivers: <Widget>[
-              SliverAppBar(
-                pinned: true,
-                expandedHeight: 200.0,
-                flexibleSpace: _banner_view(),
-              ),
-              SliverGrid.count(
-                crossAxisCount: 4,
-                children: List.generate(8, (index) {
-                  return Container(
-                    color: Colors.primaries[index % Colors.primaries.length],
-                    alignment: Alignment.center,
-                    child: Text(
-                      '$index',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+    return StreamBuilder<HomeModel>(
+        stream: _streamController.stream,
+        initialData: HomeModel(),
+        builder: (BuildContext context, AsyncSnapshot<HomeModel> snapshot) {
+          return Stack(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverAppBar(
+                      pinned: true,
+                      expandedHeight: 200.0,
+                      flexibleSpace: _banner_view(snapshot.data),
                     ),
-                  );
-                }).toList(),
-              ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate((  content, index) {
-                  return Container(
-                    height: 85,
-                    alignment: Alignment.center,
-                    color: Colors.primaries[index % Colors.primaries.length],
-                    child: Text(
-                      '$index',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    SliverGrid.count(
+                      crossAxisCount: 4,
+                      children: List.generate(8, (index) {
+                        return Container(
+                          color:
+                              Colors.primaries[index % Colors.primaries.length],
+                          alignment: Alignment.center,
+                          child: Text(
+                            '$index',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                        );
+                      }).toList(),
                     ),
-                  );
-                }, childCount: 25),
-              )
-            ],
-          ),
-        ),
-        Container(
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate((content, index) {
+                        return Container(
+                          height: 85,
+                          alignment: Alignment.center,
+                          color:
+                              Colors.primaries[index % Colors.primaries.length],
+                          child: Text(
+                            '$index',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                        );
+                      }, childCount: 25),
+                    )
+                  ],
+                ),
+              ),
+              Container(
 //          height: 150,
-          color: Colors.transparent,
-          child: _app_bar(),
-        ),
-      ],
-    );
+                color: Colors.transparent,
+                child: _app_bar(),
+              ),
+            ],
+          );
+        });
   }
 
-  _banner_view() {
+  _banner_view(HomeModel data) {
     return Container(
       height: 200,
       child: Expanded(
           flex: 1,
           child: new Swiper(
+            onTap: (index){
+              print("---------");
+              Navigator.pushNamed(context, "/web_page",arguments:data.bannerList[index].url);
+            },
             pagination: new SwiperPagination(),
             autoplay: true,
             itemBuilder: (BuildContext context, int index) {
               return new Image.network(
-                "http://a3.att.hudong.com/14/75/01300000164186121366756803686.jpg",
+                data.bannerList[index].icon,
                 fit: BoxFit.cover,
               );
             },
-            itemCount: 3,
+            itemCount: data.bannerList.length,
           )),
     );
   }
