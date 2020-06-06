@@ -15,7 +15,6 @@ class HomeRepo {
 
        if(response.statusCode == NetStatus.RESULT_OK){
          HomeModel homeModel = HomeModel.fromJson(response.data);
-         print(homeModel.config.searchUrl);
          return homeModel;
        }else {
          return Future.error(Strings.MESSAGE_ERROR);

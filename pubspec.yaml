@@ -90,6 +90,8 @@ flutter:
     - images/sousuo.png
     - images/lvxiang.png
     - images/kefu.png
+    - images/ic_data_empty.png
+    - images/ic_network_error.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

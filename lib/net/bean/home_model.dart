@@ -2,6 +2,7 @@ import 'common_model.dart';
 import 'grid_nav_model.dart';
 import 'sales_box_model.dart';
 import 'config_model.dart';
+
 class HomeModel {
   final ConfigModel config;
   final List<CommonModel> bannerList;
@@ -20,7 +21,8 @@ class HomeModel {
 
   factory HomeModel.fromJson(Map<String, dynamic> json) {
     var localNavListJson = json['localNavList'] as List;
-    List<CommonModel> localNavList = localNavListJson.map((i) => CommonModel.fromJson(i)).toList();
+    List<CommonModel> localNavList =
+        localNavListJson.map((i) => CommonModel.fromJson(i)).toList();
 
     var bannerListJson = json['bannerList'] as List;
     List<CommonModel> bannerList =
@@ -40,10 +42,15 @@ class HomeModel {
     );
   }
 
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if(this.config != null){
+    if (this.config != null) {
       data['config'] = this.config.toJson();
     }
+  }
+
+  @override
+  String toString() {
+    return 'HomeModel{config: $config, bannerList: $bannerList, localNavList: $localNavList, subNavList: $subNavList, gridNav: $gridNav, salesBox: $salesBox}';
   }
 }

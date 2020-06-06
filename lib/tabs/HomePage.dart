@@ -1,10 +1,14 @@
 import 'dart:async';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_xiecheng/common/common.dart';
+import 'package:flutter_xiecheng/net/api/api.dart';
 import 'package:flutter_xiecheng/net/bean/home_model.dart';
 import 'package:flutter_xiecheng/net/repo/home_repo.dart';
+import 'package:flutter_xiecheng/res/strings.dart';
 import 'package:flutter_xiecheng/widget/search_bar.dart';
+import 'package:flutter_xiecheng/widget/widget_progress.dart';
 
 //常量定义在外边
 const APPBAR_SCROLL_OFFSET = 100;
@@ -18,22 +22,56 @@ class MainPage extends StatefulWidget {
 class _NewState extends State<MainPage> {
   double appBarAlpha = 0;
   StreamController<HomeModel> _streamController;
+  Dio _dio;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    BaseOptions baseOptions = BaseOptions(connectTimeout: 3000);
+    _dio = Dio(baseOptions);
     _streamController = StreamController();
-    HomeRepo homeRepo = HomeRepo();
-    homeRepo.getHomePageData().then((value) => _streamController.add(value));
+    getHomeData();
+  }
+
+  void getHomeData() async {
+    try {
+      await _dio.get(Api.PAGE_HOME_URL).then((value) {
+        print('------then');
+        var homeModel = HomeModel.fromJson(value.data);
+        _streamController.add(homeModel);
+      });
+    } on DioError catch (e) {
+      print("------DioError");
+      _streamController.addError(Strings.NET_TIME_OUT);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<HomeModel>(
         stream: _streamController.stream,
-        initialData: HomeModel(),
+//        initialData: HomeModel(),//没有初始数据可先不用
         builder: (BuildContext context, AsyncSnapshot<HomeModel> snapshot) {
+          //容错处理
+          //请求的数据为空   loadingempty
+          //正在请求数据u    loading
+          //网络错误         error
+          //请求到数据       ...
+          print("-----------homepage $snapshot --- ${snapshot.data}");
+//          build本身会调用一次, stream等待链接时也会调用
+//          connectstate :none , active , wating ,done
+          var connectState = snapshot
+              .connectionState; //不能使用connectState做网络请求状态判断.只要有数据add进来,它的状态就是ConnectionState.active
+
+          if (snapshot.hasError) {
+            return StatusViews(LoadStatus.fail);
+          }
+
+          if (connectState == ConnectionState.waiting) {
+            return StatusViews(LoadStatus.loading);
+          }
+
           return Stack(
             children: <Widget>[
               Expanded(
@@ -92,9 +130,10 @@ class _NewState extends State<MainPage> {
       child: Expanded(
           flex: 1,
           child: new Swiper(
-            onTap: (index){
+            onTap: (index) {
               print("---------");
-              Navigator.pushNamed(context, "/web_page",arguments:data.bannerList[index].url);
+              Navigator.pushNamed(context, "/web_page",
+                  arguments: data.bannerList[index].url);
             },
             pagination: new SwiperPagination(),
             autoplay: true,
@@ -104,7 +143,7 @@ class _NewState extends State<MainPage> {
                 fit: BoxFit.cover,
               );
             },
-            itemCount: data.bannerList.length,
+            itemCount: data.bannerList == null ? 0 : data.bannerList.length,
           )),
     );
   }
