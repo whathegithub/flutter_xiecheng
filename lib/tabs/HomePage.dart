@@ -78,8 +78,10 @@ class _NewState extends State<MainPage> {
                 flex: 1,
                 child: CustomScrollView(
                   slivers: <Widget>[
-                    SliverAppBar(
+                      SliverAppBar(
                       pinned: true,
+                      primary: false,
+                      backgroundColor: Colors.white,
                       expandedHeight: 200.0,
                       flexibleSpace: _banner_view(snapshot.data),
                     ),

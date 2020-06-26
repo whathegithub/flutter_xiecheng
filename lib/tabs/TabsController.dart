@@ -25,22 +25,24 @@ class _NewState extends State<TabsController> {
   ];
 
   PageController _pageController;
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _pageController = PageController(initialPage: 0,keepPage: true,viewportFraction: 1);//后边注意一下keeppage
-
+    _pageController = PageController(
+        initialPage: 0, keepPage: true, viewportFraction: 1); //后边注意一下keeppage
   }
 
   @override
   Widget build(BuildContext context) {
 //    print(tabs[selectIndex]);
     return Scaffold(
+      key: _scaffoldKey,
       body: PageView.builder(
           itemCount: tabs.length,
-          controller:_pageController,
+          controller: _pageController,
           physics: NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return tabs[index];
@@ -52,7 +54,12 @@ class _NewState extends State<TabsController> {
             setState(() {
               //setstate后会重新调用build
               selectIndex = index;
-              _pageController.jumpToPage(index);//点击bottombar,pageview跳转到指定页面
+              _pageController.jumpToPage(index); //点击bottombar,pageview跳转到指定页面
+              if (selectIndex == 3) {
+                _scaffoldKey.currentState.showSnackBar( new SnackBar(
+                  content: new Text('This is the Snackbar...'),
+                ));
+              }
             });
           },
           selectedFontSize: 12,
@@ -80,6 +87,4 @@ class _NewState extends State<TabsController> {
           ]),
     );
   }
-
-
 }
